@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 
 class Form extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			id: Date.now(),
-			done: false,
-			title: "",
-			description: "",
-			importance: "1",
-			date: "2017-12-12"
-		};
-	}
-
+	state = {
+		id: Date.now(),
+		done: false,
+		title: "",
+		description: "",
+		importance: "1",
+		date: "2017-12-12"
+	};
+	
 	handleChange = e => {
 		let name = e.target.name;
 		let value = e.target.value;

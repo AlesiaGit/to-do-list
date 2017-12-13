@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 
 class TableItem extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			display: "none",
-			coordX: "0px",
-			coordY: "0px"
-		};
-	}
+	state = {
+		display: "none",
+		coordX: "0px",
+		coordY: "0px"
+	};
 
 	showDescription = e => {
 		this.setState({

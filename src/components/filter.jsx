@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 
 class Filter extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			hideCompleted: false,
-			startDate: "2000-01-01",
-			endDate: "2020-12-31",
-			searchText: ""
-		};
-	}
+	state = {
+		hideCompleted: false,
+		startDate: "2000-01-01",
+		endDate: "2020-12-31",
+		searchText: ""
+	};
+	
 
 	handleSearch = e => {
 		let name = e.target.name;

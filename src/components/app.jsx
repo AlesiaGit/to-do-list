@@ -3,14 +3,20 @@ import React, { Component } from "react";
 import Form from "./form";
 import Filter from "./filter";
 import Table from "./table";
+import { asyncLocalStorage } from "../api/asyncLocalStorage";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      items: JSON.parse(localStorage.getItem("notes")) || [],
+      items: [],
       columns: ["id", "done", "title", "importance", "date"]
     };
+    asyncLocalStorage.getItem("notes").then((items) => {
+      this.setState({
+        items
+      });
+    });
   }
 
   toggleChecked = id => {
@@ -37,7 +43,9 @@ class App extends Component {
   sortColumn = (order, columnName) => {
     let range = columnName.columnName;
 
-    let array = this.state.items.sort(function(a, b) {
+    let array = this.state.items;
+
+    array.sort(function(a, b) {
       if (typeof a[range] === "string") {
         var x = a[range].toLowerCase();
         var y = b[range].toLowerCase();
@@ -73,7 +81,7 @@ class App extends Component {
       items: array
     });
 
-    localStorage.setItem("notes", JSON.stringify(array));
+    asyncLocalStorage.setItem("notes", array);
   };
 
   filterResults = input => {
@@ -84,12 +92,13 @@ class App extends Component {
     let endDate = new Date(input.endDate).getTime();
     let startDate = new Date(input.startDate).getTime();
     let hide = input.hideCompleted;
+    let text = input.searchText.toLowerCase();
 
     this.setState({
       items: this.state.items.map(item => {
         let itemDate = new Date(item.date).getTime();
-        let textIndex = item.description.toLowerCase().indexOf(input.searchText.toLowerCase());
-        let otherIndex = item.title.toLowerCase().indexOf(input.searchText.toLowerCase());
+        let textIndex = item.description.toLowerCase().indexOf(text);
+        let otherIndex = item.title.toLowerCase().indexOf(text);
         if (itemDate > endDate || itemDate < startDate) {
           return { ...item, display: "none" };
         } else if (hide === true && item.done === true) {
