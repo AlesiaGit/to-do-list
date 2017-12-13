@@ -11,7 +11,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build&&gh-pages -d build"
   },
-  "homepage": "https://alesiagit.github.io/to-do-list/index.html"
+  "homepage": "https://alesiagit.github.io/to-do-list",
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
+  }
 }
